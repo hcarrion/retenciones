@@ -1,0 +1,162 @@
+<div *ngIf="loading" class="content-load">
+    <br>
+    <mat-spinner class="child-load"></mat-spinner>
+    <br>
+    <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+</div>
+<div [formGroup]="regEvento">
+    <div class="card">
+        <div class="card-header card-header-info">
+            <h4 class="card-title">
+                <p style="color:#3F52B6; text-align: left;">
+                    <strong> <i class="material-icons">library_add</i> Registro actividad</strong></p>
+            </h4>
+        </div>
+        <div style="align-content: center; vertical-align: middle;">
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Código: </strong> </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width:100%;">
+                        <input formControlName="codigoActividadInput" matInput #inputAtencion>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Estado: </strong> </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="estadoActividadSelect" placeholder="Selecciona estado"
+                            [compareWith]="compareItems" [(ngModel)]="actividadDet.estado">
+                            <mat-option *ngFor="let estadolet of estado.detalle" [value]="estadolet">
+                                {{estadolet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Tipo actividad: </strong> </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width:100%;">
+                        <mat-select formControlName="tipoActividadSelect" placeholder="Selecciona tipo actividad"
+                            [compareWith]="compareItems" [(ngModel)]="actividadDet.tipo">
+                            <mat-option *ngFor="let tipoactividadlet of tipo.detalle" [value]="tipoactividadlet"
+                                (click)="loadSubTipo(tipoactividadlet, true)">
+                                {{tipoactividadlet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Subtipo actividad: </strong> </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width:100%;">
+                        <mat-select formControlName="subtipoActividadSelect" placeholder="Selecciona subtipo actividad"
+                            [compareWith]="compareItems" [(ngModel)]="actividadDet.subtipo">
+                            <mat-option *ngFor="let subtipoactividadlet of subtipo" [value]="subtipoactividadlet">
+                                {{subtipoactividadlet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Actividad: </strong> </mat-label>
+                </div>
+                <div class="col-md-10">
+                    <mat-form-field hintLabel="Max 120 caracteres" class="max-width" style="font-size: small; width: 100%;">
+                        <textarea formControlName="tituloActividadInput" matInput #inputTitulo maxlength="120"
+                            placeholder="Ingrese actividad" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                            cdkTextareaAutosize #autosize2="cdkTextareaAutosize"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputTitulo.value?.length || 0}}/120</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Descripción: </strong> </mat-label>
+                </div>
+                <div class="col-md-10">
+                    <mat-form-field hintLabel="Max 200 caracteres" class="max-width" style="font-size: small; width:100%;">
+                        <textarea formControlName="descripcionActividadTextArea" matInput #inputDescripcion maxlength="200" 
+                            cdkTextareaAutosize placeholder="Ingrese descripción"
+                            #autosize2="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputDescripcion.value?.length || 0}}/200</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Fecha inicio: </strong> </mat-label>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="fechaInicioActividadInput" matInput [matDatepicker]="picker2"
+                            placeholder="Selecciona fecha inicio" [min]="minDate" [max]="maxDate"
+                            (dateInput)="changeFech('input', $event)" (dateChange)="changeFech('change', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Horas asignadas: </strong></mat-label>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field hintLabel="Max 3 numeros" style="font-size: small; width: 100%;">
+                        <input formControlName="horasAsigActividadInput" type="number" step="1" matInput
+                            #inputHoras maxlength="3" placeholder="Ingrese horas asignadas" id="horas"
+                            min="1" max="999" onPaste="return false" onKeyPress="if(this.value.length==3) return false;"
+                            (focusout)="focusOut($event)" oninput="this.value = Math.trunc(this.value)">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-label><strong style="font-size: small;">Fecha fin: </strong> </mat-label>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="fechaFinActividadInput" matInput [matDatepicker]="picker3"
+                            placeholder="Selecciona fecha fin" [min]="minDateFin" [max]="maxDateFin"
+                            (dateInput)="changeFechFin('input', $event)" (dateChange)="changeFechFin('change', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-2 align-right-all">
+            <button mat-raised-button class="btn-primary" (click)="saveActividad(iniciativa)">
+                <mat-icon>save</mat-icon>
+                Guardar
+            </button>
+        </div>
+        <div class="col-md-2 align-right-all">
+            <button mat-raised-button class="btn-info" (click)="resetFields()">
+                <mat-icon>clear</mat-icon>
+                Limpiar
+            </button>
+        </div>
+        <div class="col-md-2 align-right-all">
+            <button mat-raised-button class="btn-danger" (click)="close()">
+                <mat-icon>close</mat-icon>
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>

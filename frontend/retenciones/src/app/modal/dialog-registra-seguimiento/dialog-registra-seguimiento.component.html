@@ -1,0 +1,278 @@
+<div *ngIf="loading" class="content-load">
+    <br>
+    <mat-spinner class="child-load"></mat-spinner>
+    <br>
+    <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+</div>
+
+
+<div [formGroup]="regIniciativa">
+    <div class="card">
+        <div class="card-header card-header-info"  style="height: 50px;">
+            <h6 class="card-title">
+                <p style="color:#3F52B6; text-align: left;">
+                    <strong><i class="material-icons">library_add</i> Registro de atención</strong></p>
+            </h6>
+        </div>
+       
+        <div class="card-content">
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="codigoSVTInput" matInput #inputAtencion maxlength="9"
+                        placeholder="N° SVT/Ticket">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="estadoSelect" placeholder="Estado"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.estado">
+                            <mat-option *ngFor="let estadolet of estado.detalle" [value]="estadolet">
+                                {{estadolet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input style="background-color: khaki; text-align: center;" readonly="readonly"
+                            formControlName="numIniciativaInput" matInput #inputNumeroIniciativa
+                            placeholder="N°">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <textarea formControlName="tituloInput" matInput #inputTitulo maxlength="50"
+                            placeholder="Título" id="titulo" cdkAutosizeMinRows="1"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputTitulo.value?.length || 0}}/50</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <textarea formControlName="sumillaInput" matInput #inputSumilla maxlength="120"
+                            placeholder="Sumilla" id="sumilla" cdkAutosizeMinRows="1"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputSumilla.value?.length || 0}}/120</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%; display:block;">
+                        <mat-select [formControl]="jefeProyectoCtrl" placeholder="Jefe de proyecto"
+                            #singleSelect style="font-size: small;" [(ngModel)]="iniciativa.jefeProyecto" [compareWith]="compareItems">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="jefeProyectoFilterCtrl"
+                                    placeholderLabel="Buscar jefe de proyecto..."
+                                    noEntriesFoundLabel="'No se encontraron jefes de proyecto coincidentes'">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let colaboradorlet of filteredJefeProyecto | async" [value]="colaboradorlet">
+                                {{colaboradorlet.nombres}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%; display:block;">
+                        <mat-select [formControl]="usuarioProcesosCtrl" placeholder="Usuario de procesos"
+                            #singleSelect style="font-size: small;" [(ngModel)]="iniciativa.usuarioProcesos" [compareWith]="compareItems">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="usuarioProcesosFilterCtrl"
+                                    placeholderLabel="Buscar usuario de procesos..."
+                                    noEntriesFoundLabel="'No se encontraron usuarios de procesos coincidentes'">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let colaboradorlet of filteredUsuarioProcesos | async" [value]="colaboradorlet">
+                                {{colaboradorlet.nombres}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <textarea formControlName="objPrincipalTextArea" matInput cdkTextareaAutosize
+                            #inputObjPrincipal maxlength="200" placeholder="Objetivo principal"
+                            #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputObjPrincipal.value?.length || 0}}/200</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width:100%;">
+                        <textarea formControlName="objSecundarioTextArea" matInput cdkTextareaAutosize
+                            #inputObjSecundario maxlength="200" placeholder="Objetivo secundario"
+                            #autosize2="cdkTextareaAutosize" cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"
+                            oninput="this.value = this.value.toUpperCase()"></textarea>
+                        <mat-hint align="end">{{inputObjSecundario.value?.length || 0}}/200</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="fechaInicioInput" matInput [matDatepicker]="picker2"
+                            placeholder="Fecha de inicio" [min]="minDate" [max]="maxDate"
+                            (dateInput)="changeFech('input', $event)" (dateChange)="changeFech('change', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="horaEstimadaInput" matInput #inputHoras
+                            placeholder="Estimado(horas)"type="number" min="1" max="9999" onPaste="return false"
+                            onKeyPress="if(this.value.length==4) return false;" (focusout)="focusOut($event)"
+                            id="horas-est" oninput="this.value = Math.trunc(this.value)">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="fechaFinInput" matInput [matDatepicker]="picker"
+                            placeholder="Fecha de fin" [min]="minDateFin" [max]="maxDateFin"
+                            (dateInput)="changeFechFin('input', $event)" (dateChange)="changeFechFin('change', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="prioridadSelect" placeholder="Prioridad"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.prioridad">
+                            <mat-option *ngFor="let prioridadlet of prioridad.detalle" [value]="prioridadlet">
+                                {{prioridadlet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="clasificacionSelect" placeholder="Clasificación"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.clasificacion">
+                            <mat-option *ngFor="let clasificacionlet of clasificacion.detalle"
+                                [value]="clasificacionlet">
+                                {{clasificacionlet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="categoriaSelect" placeholder="Categoría"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.categoria">
+                            <mat-option *ngFor="let categorialet of categoria.detalle" [value]="categorialet">
+                                {{categorialet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="tipoSelect" placeholder="Tipo"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.tipo">
+                            <mat-option *ngFor="let tipolet of tipo.detalle" [value]="tipolet">
+                                {{tipolet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width: 100%; display:block;">
+                        <mat-select [formControl]="areaCtrl" placeholder="Área"
+                            #singleSelect style="font-size: small;" [(ngModel)]="iniciativa.area" [compareWith]="compareItems">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="areaFilterCtrl"
+                                    placeholderLabel="Buscar área..."
+                                    noEntriesFoundLabel="'No se encontraron áreas coincidentes'">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let arealet of filteredArea | async" [value]="arealet">
+                                {{arealet.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <mat-select formControlName="contactoSelect" placeholder="Contacto"
+                            [compareWith]="compareItems" [(ngModel)]="iniciativa.contacto">
+                            <mat-option *ngFor="let contactolet of contactos" [value]="contactolet"
+                                (click)="selectContacto(contactolet)">
+                                {{contactolet.nombres}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input [formControl]="correoContactoInput" matInput #inputHoras type="email" placeholder="Correo">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input [formControl]="telefonoContactoInput" matInput #inputHoras type="number" placeholder="Teléfono">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input [formControl]="anexoContactoInput" matInput #inputHoras type="number" placeholder="Anexo">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input formControlName="horaRealInput" matInput #inputHorasReales
+                            placeholder="Horas Planificadas"type="number" min="1" max="9999" onPaste="return false"
+                            onKeyPress="if(this.value.length==4) return false;" (focusout)="focusOut($event)"
+                            oninput="this.value = Math.trunc(this.value)">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field style="font-size: small; width: 100%; display:block;">
+                        <mat-select [formControl]="usuarioSolicitanteCtrl" placeholder="Usuario Solicitante"
+                            #singleSelect style="font-size: small;" [(ngModel)]="iniciativa.usuarioSolicitante" [compareWith]="compareItems">
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="usuarioSolicitanteFilterCtrl"
+                                    placeholderLabel="Buscar usuario solicitante..."
+                                    noEntriesFoundLabel="'No se encontraron usuarios solicitante coincidentes'">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let colaboradorlet of filteredUsuarioSolicitante | async" [value]="colaboradorlet">
+                                {{colaboradorlet.nombres}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 align-right-all">
+                <button mat-raised-button class="btn-primary" (click)="saveIniciativa(iniciativa)">
+                    <mat-icon>save</mat-icon>
+                    Guardar
+                </button>
+                </div>
+                <div class="col-md-2 align-right-all">
+                <button mat-raised-button class="btn-info" (click)="resetFields()">
+                    <mat-icon>clear</mat-icon>
+                    Limpiar
+                </button>
+                </div>
+                <div class="col-md-2 align-right-all">
+                <button mat-raised-button class="btn-danger" (click)="close()">
+                    <mat-icon>close</mat-icon>
+                    Cerrar
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

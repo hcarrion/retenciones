@@ -1,0 +1,102 @@
+<div *ngIf="loading" class="content-load">
+    <br>
+    <mat-spinner class="child-load"></mat-spinner>
+    <br>
+    <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+</div>
+<div [formGroup]="regRecursos">
+    <div class="card">
+        <div    >
+            <h6 class="card-title">
+  
+                    <strong style="color:#3F52B6; text-align: left;"><i class="material-icons">people</i> Monitor de Recursos</strong>                                             
+            </h6>            
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input style="background-color: khaki; text-align: center;" readonly="readonly"
+                            formControlName="nIniciativaInputDialog" matInput #inputNumIniciativa
+                            value={{this.codigo}}
+                            placeholder="Codigo" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input style="background-color: khaki;" readonly="readonly"
+                            formControlName="tituloInputDialog" matInput #inputTituloIniciativa
+                            value={{this.titulo}}
+                            placeholder="Descripcion" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 text-align: center;">
+                    <mat-form-field style="font-size: small; width: 100%;">
+                        <input style="background-color: khaki;" readonly="readonly"
+                            formControlName="diaInputDialog" matInput #inputDia
+                            value={{this.dia}}
+                            placeholder="Dia" type="text">
+                    </mat-form-field>
+                </div>
+            </div>
+         
+            <div class="row" style="width: 500px;">
+                <div class="example-container1 mat-elevation-z8">
+                    <table mat-table [dataSource]="colaborador" matSort style="width: 500px;">
+        
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="codigo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header width ="20%" > CODIGO </th>
+                            <td style="height: 10px;" mat-cell *matCellDef="let tipo" (click)="selectedDocumento(tipo)"> {{tipo.codigo}} </td>
+                        </ng-container>
+                
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="nombres">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header width ="60%"> {{this.coltitulo}} </th>
+                            <td mat-cell *matCellDef="let tipo" (click)="selectedDocumento(tipo)"> {{tipo.nombres}} </td>
+                        </ng-container>
+                
+                        <ng-container matColumnDef="horas">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header width ="20%"> HORAS </th>
+                            <td mat-cell *matCellDef="let tipo" (click)="selectedDocumento(tipo)"> {{tipo.horas}}
+                            </td>
+                        </ng-container>
+                                       
+                        <tr mat-header-row *matHeaderRowDef="columnas; sticky: true;" class="encabezado"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnas;"
+                            [ngClass]="{'highlight': selectedRowIndex == row.codigo}" (click)="highlight(row)"></tr>
+                    </table>
+                </div> 
+                
+                <div class="card-header card-header-info"  style="height: 115px; width: 100%;" align="center">
+                    <table>
+                        <tr>
+                            <td><strong style="color:#3F52B6; text-align: left; font-size: small;"><p style="height: 10px;">Total horas programadas: </p></strong></td>
+                            <td><strong style="color:#3F52B6; text-align: center; font-size: small;"><p style="height: 10px;">{{this.totalHoras}}</p></strong></td>
+                            <td rowspan="4" width=10% align="center"> 
+                                <button mat-raised-button class="btn-danger" style="height: 35px;" (click)="close()" align="center">
+                                    <mat-icon>close</mat-icon>
+                                    Cerrar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>                                                    
+                            <td><strong style="color:#3F52B6; text-align: left; font-size: small;"><p style="height: 10px;">Total horas Acumuladas: </p></strong></td>
+                            <td><strong style="color:#3F52B6; text-align: center; font-size: small;"><p style="height: 10px;">{{this.totalacu}}</p></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#3F52B6; text-align: left; font-size: small;"><p style="height: 10px;">Total horas realizadas: </p></strong></td>                        
+                            <td><strong style="color:#3F52B6; text-align: center; font-size: small;"><p style="height: 10px;">{{this.total}}</p></strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:rgb(182, 63, 63); text-align: left; font-size: small;"><p style="height: 10px;">Total % Avances: </p></strong></td>                    
+                            <td><strong style="color:rgb(182, 63, 63); text-align: center; font-size: small;"><p style="height: 10px;">{{this.avances}}</p></strong></td>                            
+                        </tr>                                                                                  
+                    </table>
+                 
+                   
+                </div>
+            </div>           
+        </div>
+    </div>   
+</div>
