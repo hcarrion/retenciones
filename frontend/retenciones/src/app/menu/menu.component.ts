@@ -14,9 +14,11 @@ import { MenuJson } from '../shared/models/menu-json';
 
 export class MenuComponent implements OnDestroy  { 
   mobileQuery: MediaQueryList;
-  Menu: MenuJson = new MenuJson;
+  Menu: MenuJson; 
   usuario: string;
   perfil: string;
+  name = 'Angular 8';
+  objectKeys = Object.keys;
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
   tipomenu: string;
   pantallaacceso: boolean[]=[];
@@ -43,10 +45,11 @@ export class MenuComponent implements OnDestroy  {
     this.mobileQuery.removeListener(this._mobileQueryListener);
 
   }
-
+  
   shouldRun = true;
 
   ngOnInit(){
+    this.Menu = new MenuJson
     localStorage.setItem('indinicio', "true");
     localStorage.setItem("usuario","");
     localStorage.setItem("nomusu","");
@@ -55,20 +58,21 @@ export class MenuComponent implements OnDestroy  {
   } 
 
   openDialogRecursos(idIniciativa: string): void {
-    const dialogRef = this.matDialog.open(DialogAccesoComponent, /*dialogConfig,*/
-      { width: '500px',
-        height: '500px',
-        disableClose: true,
-        data: idIniciativa
-      }
-    );
+    if (localStorage.getItem("usuario")!=""){
+      const dialogRef = this.matDialog.open(DialogAccesoComponent, /*dialogConfig,*/
+        { width: '500px',
+          height: '500px',
+          disableClose: true,
+          data: idIniciativa
+        }
+      );
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getperfiles(result);
-      this.usuario = localStorage.getItem("usuario") + "-" + localStorage.getItem("nomusu");
-      this.perfil =  localStorage.getItem("perfil");
-    }); 
-
+      dialogRef.afterClosed().subscribe(result => {
+        this.getperfiles(result);
+        this.usuario = localStorage.getItem("usuario") + "-" + localStorage.getItem("nomusu");
+        this.perfil =  localStorage.getItem("perfil");
+      }); 
+    }
   }
 
 

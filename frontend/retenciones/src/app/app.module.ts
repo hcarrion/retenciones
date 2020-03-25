@@ -12,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ListadoAtencionComponent } from './listado-atencion/listado-atencion.component';
 import { RegistroHorasComponent } from './registro-horas/registro-horas.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { DialogRecursosComponent } from './modal/dialog-recursos/dialog-recursos.component';
@@ -63,7 +62,6 @@ import { SolicitudesComponent } from './solicitudes/solicitudes.component';
     AppComponent,
     RegistroIniciativaComponent,
     MenuComponent,
-    ListadoAtencionComponent,
     RegistroHorasComponent,
     ConfiguracionComponent,
     DialogRecursosComponent,
