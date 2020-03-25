@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { DialogAccesoComponent } from '../modal/dialog-acceso/dialog-acceso.component';
 import { MatDialog } from '@angular/material';
-
-@Component({
+import { MenuJson } from '../shared/models/menu-json';
+ @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material';
 
 export class MenuComponent implements OnDestroy  { 
   mobileQuery: MediaQueryList;
+  Menu: MenuJson = new MenuJson;
   usuario: string;
   perfil: string;
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);

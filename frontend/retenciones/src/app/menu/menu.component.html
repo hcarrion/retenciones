@@ -10,23 +10,13 @@
   <mat-sidenav-container class="example-sidenav-container">
     <mat-sidenav #snav style="height: 100%; weight:100%;">
       <mat-nav-list>
-        <a mat-list-item [routerLink]="['listado_atencion']" (click)="snav.toggle()">
-            <mat-icon>assignment_ind</mat-icon> <span class="nav-caption">Solicitudes</span>
-        </a>
-        <a mat-list-item routerLink="/owner" [matMenuTriggerFor]="menuseguridad">
-          <mat-icon>setting</mat-icon> <span class="nav-caption">Configuracion</span>   
+        <a mat-list-item *ngFor="let item of Menu" [routerlink]="{{item.menuruta}}" (click)="snav.toggle()">
+            <mat-icon>{{item.menuicono}}</mat-icon> <span class="nav-caption">{{item.menunombre}}</span>
         </a>
         <a mat-list-item routerLink="#" (click)="onSidenavClose()">
             <mat-icon>closed</mat-icon><span class="nav-caption">Salir</span>
         </a>
       </mat-nav-list>
-<!--- Sub Menu   ---> 
-      <mat-menu #menuseguridad="matMenu">
-        <button mat-menu-item (click)="snav.toggle()">Perfiles y Funciones</button>
-        <button mat-menu-item (click)="snav.toggle()">Pantallas</button>
-        <button mat-menu-item (click)="snav.toggle()">Usuario</button>
-      </mat-menu>
-
     </mat-sidenav>
     
     <mat-sidenav-content style="height: 100%;">
