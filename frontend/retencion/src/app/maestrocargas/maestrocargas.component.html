@@ -46,36 +46,96 @@
             
             <table style="height:auto;">
                 <tr>
-                    <td width=75%>  
+                    <td width=80%>  
                         <table style="height:auto; border-width: 0.1px; padding: 0.2px; border-style:dotted; border-color:cadetblue;" matSort (matSortChange)="sortData($event)" bordered="true" width=100%>
                             <tr class="encabezado">
-                                <th mat-sort-header="id">ID</th>
-                                <th mat-sort-header="tipodocumento">TIPO DE SOLICITUD</th>
-                                <th mat-sort-header="tiporequerimiento">TIPO DE REGISTRO</th>
-                                <th mat-sort-header="entidad">TIPO DE INGRESO</th>
-                                <th mat-sort-header="oficioexpediente">TIPO DE CARGA</th>
-                                <th mat-sort-header="implicados"># IMPLICADOS</th>
+                                <th mat-sort-header="id">ID LOTE</th>
+                                <th mat-sort-header="ruta">RUTA</th>
+                                <th mat-sort-header="solicitudes">SOL</th>
+                                <th mat-sort-header="implicados">IMPL</th>
+                                <th mat-sort-header="fecharegistro">FECHA DE REGISTRO</th>
+                                <th mat-sort-header="horaproceso">HORA DE PROCESO</th>
+                                <th mat-sort-header="horatermino">HORA DE TEERMINO</th>
                                 <th mat-sort-header="usuario">USUARIO</th>
-                                <th mat-sort-header="fecha">FECHA Y HORA</th>
                                 <th mat-sort-header="estado">ESTADO</th>
                                 <th mat-sort-header="acc">ACCION</th>
                             </tr>
                         
                             <tr *ngFor="let dessert of sortedData" class="detalle">
                                 <td class="encabezado pointer" style="text-align: center;">{{dessert.id}}</td>
-                                <td>{{dessert.tipodocumento}}</td>
-                                <td>{{dessert.tiporequerimiento}}</td>
-                                <td>{{dessert.entidad}}</td>
-                                <td>{{dessert.oficioexpediente}}</td>
+                                <td>{{dessert.ruta}}</td>
+                                <td align="center">{{dessert.solicitudes}}</td>
                                 <td align="center">{{dessert.implicados}}</td>
-                                <td align="center">{{dessert.usuario}}</td>
-                                <td>{{dessert.fecha}}</td>
-                                <td align="center">{{dessert.estado}}</td>
+                                <td align="center">{{dessert.fecharegistro}}</td>
+                                <td align="center">{{dessert.horaproceso}}</td>
+                                <td align="center">{{dessert.horatermino}}</td>
+                                <td>{{dessert.usuario}}</td>
+                                <td>{{dessert.estado}}</td>
                                 <td align="center">
-                                    <mat-icon matTooltip="Editar" class="pointer" style="color: #3f51b5;" (click)="openDialogRecursos()">edit</mat-icon>
-                                    <mat-icon matTooltip="Implicados" class="pointer" style="color: #3f51b5;" (click)="openDialogImplicados()">people</mat-icon>
-                                    <mat-icon matTooltip="Documentos"  class="pointer" style="color:lightgrey;" (click)="openDialogDocumentos()">receipt</mat-icon>
-                                    <mat-icon matTooltip="Implicados"  matTooltip="En Proceso" class="pointer" style="color:gold;">info</mat-icon></td>
+                                    <mat-icon matTooltip="iniciar" class="pointer" style="color: #3f51b5;" (click)="openDialogRecursos()">loop</mat-icon>
+                                    <mat-icon matTooltip="ver detalle" class="pointer" style="color:goldenrod;" (click)="openDialogRecursos()">pageview</mat-icon>
+                                    <mat-icon matTooltip="Anular Lote" class="pointer" style="color:red;" (click)="openDialogRecursos()">delete</mat-icon>
+                                </td>
+                            </tr>
+                            <tr class="encabezado">
+                                <th mat-sort-header="id" colspan="10">CARGA DE LOTE POR ARCHIVO EN FORMATO EXCEL</th>
+                            </tr>
+                            <tr>
+                                <td colspan="9">
+                                        <input ArchivoCarga style="font-size: xx-small; height: 35px;" 
+                                            formControlName="archivocarga"
+                                            id="file" 
+                                            type="file" 
+                                            multiple
+                                            class="form-control"
+                                            (change)="onFileChange($event)">
+                                </td>
+                                <td>
+                                        <button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect>Registrar</button>
+                                </td>
+                            </tr>
+                            <tr class="encabezado">
+                                <th mat-sort-header="id" colspan="10">RESULTADO DE CARGA:</th>     
+                            </tr>
+                            <tr>
+                                <td colspan="10">
+                                    <table width=100% style="font-size: xx-small;">
+                                        <tr>
+                                            <td><p></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td width=10% ></td>
+                                            <td width=20%  class="encabezado pointer">Archivo de Carga:</td>
+                                            <th style="color: #0d478f;" width=15%>solicitud.xlsx</th>
+                                            <td width=20%  class="encabezado pointer">Cantidad de registros econtrados:</td>
+                                            <th style="color: #0d478f;" width=10%>1,000</th>
+                                            <td width=20%></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td  class="encabezado pointer">Tamaño:</td>
+                                            <th style="color: #0d478f;">16MB</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                           <td  class="encabezado pointer">Solicitudes para cargar:</td>
+                                           <th style="color: #0d478f;">200</th>
+                                           <td  class="encabezado pointer">Solicitudes no cargadas:</td> 
+                                           <th style="color: red;" >100</th>    
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td  class="encabezado pointer">Implicados que seran cargados:</td>
+                                            <th  style="color: #0d478f;">500</th>
+                                            <td  class="encabezado pointer">Implicados que no seran cargados:</td>
+                                            <th style="color: red;">200</th>
+                                        </tr>
+                                        <tr><td><p></p></td></tr>
+                                        <tr>                                
+                                            <td colspan="6" align="center"><button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect>Inicio del Proceso</button></td>
+                                        </tr>    
+                                    </table> 
+                                </td>                                
                             </tr>
                         </table>
                     </td>
@@ -101,14 +161,14 @@
                                 </td>
                             </tr>
                             
-                            <tr class="encabezado" colspan="3"><th colspan="3">BUSQUEDA TOTAL EN LA PARRILLA</th></tr>
+                            <tr class="encabezado" colspan="3"><th colspan="3">BUSCAR EN LA LISTA DE RESULTADOS</th></tr>
                             <tr>
                                 <td colspan="3" style="background-color: beige;">                        
                                     <input matInput (keyup)="buscarDatos($event.target.value)" style="font-size: xx-small;" placeholder="Buscar">                                
                                 </td>
                             </tr>
                             <tr>
-                                <td><mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 100]" showFirstLastButtons></mat-paginator></td>
+                                <td></td>
                             </tr>
                         </table>    
                     </td>

@@ -17,15 +17,14 @@ import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/t
 
 export interface Dessert {
   id: number,
-  tipodocumento: string,
-  tiporequerimiento: string,
-  entidad:string,
-  tipocarga:string,
-  oficioexpediente:string,
+  ruta: string,
+  solicitudes: number,
   implicados: number,
-  usuario:string,
-  fecha: string,
-  estado: string;
+  fecharegistro: string,
+  horaproceso:string,
+  horatermino:string,
+  estado:string,
+  usuario: string;
 }
 
 @Component({
@@ -36,26 +35,12 @@ export interface Dessert {
 export class MaestrocargasComponent implements OnInit {
   ruta:string = this.routeparametro.snapshot.paramMap.get('retenciones');
   desserts: Dessert[] = [
-    {id:1,tipodocumento:'OFICIO',tiporequerimiento:"INFORMACION",entidad:"MINISTERIO PUBLICO",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:3,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:2,tipodocumento:'EXPEDIENTE',tiporequerimiento:"LSB",entidad:"PODER JUDICIAL",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:4,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'DEVUELTO'},
-    {id:3,tipodocumento:'EXPEDIENTE',tiporequerimiento:"RETENCIONES",entidad:"SUNAT",tipocarga:"MASIVA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'RECHAZADO'},
-    {id:4,tipodocumento:'OFICIO',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"SUNAT",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'ACEPTADO'},
-    {id:5,tipodocumento:'OFICIO',tiporequerimiento:"INFORMACION",entidad:"MINISTERIO DEL INTERIOR",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:6,tipodocumento:'OFICIO',tiporequerimiento:"LSB",entidad:"PODER JUDICIAL",tipocarga:"MASIVA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'CERRADO'},
-    {id:7,tipodocumento:'EXPEDIENTE',tiporequerimiento:"INFORMACION",entidad:"SBS",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:4,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'RECHAZADO'},
-    {id:8,tipodocumento:'OFICIO',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"MUNICIPALIDAD",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'CERRADO'},
-    {id:9,tipodocumento:'EXPEDIENTE',tiporequerimiento:"INFORMACION",entidad:"TRIBUNAL CONSTITUCIONAL",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:10,tipodocumento:'EXPEDIENTE',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"ESSALUD",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:11,tipodocumento:'OFICIO',tiporequerimiento:"INFORMACION",entidad:"MINISTERIO PUBLICO",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:3,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:12,tipodocumento:'EXPEDIENTE',tiporequerimiento:"LSB",entidad:"PODER JUDICIAL",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:4,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'DEVUELTO'},
-    {id:13,tipodocumento:'EXPEDIENTE',tiporequerimiento:"RETENCIONES",entidad:"SUNAT",tipocarga:"MASIVA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'RECHAZADO'},
-    {id:14,tipodocumento:'OFICIO',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"SUNAT",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'ACEPTADO'},
-    {id:15,tipodocumento:'OFICIO',tiporequerimiento:"INFORMACION",entidad:"MINISTERIO DEL INTERIOR",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:16,tipodocumento:'OFICIO',tiporequerimiento:"LSB",entidad:"PODER JUDICIAL",tipocarga:"MASIVA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'CERRADO'},
-    {id:17,tipodocumento:'EXPEDIENTE',tiporequerimiento:"INFORMACION",entidad:"SBS",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:4,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'RECHAZADO'},
-    {id:18,tipodocumento:'OFICIO',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"MUNICIPALIDAD",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:2,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'CERRADO'},
-    {id:19,tipodocumento:'EXPEDIENTE',tiporequerimiento:"INFORMACION",entidad:"TRIBUNAL CONSTITUCIONAL",tipocarga:"MANUAL",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
-    {id:20,tipodocumento:'EXPEDIENTE',tiporequerimiento:"LEVANTAMIENTO DE RETENCION",entidad:"ESSALUD",tipocarga:"MIXTA",oficioexpediente:"001-45690",implicados:1,usuario:"THCAL001",fecha:"26/03/2020 14:05:00",estado:'REGISTRADO'},
+    {id:1,ruta:'solicitud1345.xls',solicitudes:5, implicados:20, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"THCAL002 - JORGE MENDEZ",estado:"REGISTRADO"},
+    {id:2,ruta:'solicitud1345.xls',solicitudes:6, implicados:30, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"TQCAL004 - JULIO QUISPE",estado:"EN PROCESO"},
+    {id:3,ruta:'solicitud1345.xls',solicitudes:2, implicados:15, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"TQCAL004 - JULIO QUISPE",estado:"PROCESADO"},
+    {id:4,ruta:'solicitud1345.xls',solicitudes:6, implicados:50, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"TQCAL004 - JULIO QUISPE",estado:"OBSERVADO"},
+    {id:5,ruta:'solicitud1345.xls',solicitudes:2, implicados:10, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"TQCAL004 - JULIO QUISPE",estado:"ANULADO"},
+    {id:6,ruta:'solicitud1345.xls',solicitudes:3, implicados:30, fecharegistro:"20/04/2020 10:46:00",horaproceso:"10:49:00",horatermino:"10:49:00",usuario:"TQCAL004 - JULIO QUISPE",estado:"PROCESAO"}
     ];
   oculta: boolean =true;
   tipoflecha: string ="keyboard_arrow_up";
@@ -83,7 +68,7 @@ export class MaestrocargasComponent implements OnInit {
   agencialista: string[] = ['Agencia Abancay',	'Agencia Aguaytia',	'Agencia Andahuaylas',	'Agencia Andrés Avelino Cáceres',	'Agencia Anta',	'Agencia Arequipa',	'Agencia Ate',	'Agencia Ayacucho',	'Agencia Bambamarca',	'Agencia Barranca',	'Agencia Cajabamba',	'Agencia Cajamarca',	'Agencia Camaná',	'Agencia Campo Verde',	'Agencia Chocope',	'Agencia Cañete',	'Agencia Carabayllo',	'Agencia Casma',	'Agencia Cayma',	'Agencia Centenario',	'Agencia Cerro de Pasco',	'Agencia Cerro colorado',	'Agencia Chachapoyas',	'Agencia Chepén',	'Agencia Chiclayo',	'Agencia Chilca',	'Agencia Chimbote',	'Agencia Chivay',	'Agencia Chorrillos',	'Agencia Chosica',	'Agencia Chota',	'Agencia Chulucanas',	'Agencia Chupaca',	'Agencia Chuquibamba',	'Agencia Ciudad Constitución',	'Agencia Cocachacra',	'Agencia Constitución',	'Agencia Corire',	'Agencia Cusco',	'Agencia El Porvenir',	'Agencia El Tambo',	'Agencia Huachipa',	'Agencia Huacho',	'Agencia Huamachuco',	'Agencia Huancavelica',	'Agencia Huancabamba',	'Agencia Huánuco',	'Agencia Huaraz',	'Agencia Huarmaca',	'Agencia Huaycán',	'Agencia Ica',	'Agencia Iquitos',	'Agencia Jaén',	'Agencia Jauja',	'Agencia Jicamarca',	'Agencia Juliaca',	'Agencia La Esperanza',	'Agencia La Unión',	'Agencia La Joya',	'Agencia La Merced',	'Agencia La Negrita',	'Agencia La Oroya',	'Agencia Los Olivos',	'Agencia Lurín',	'Agencia Manchay',	'Agencia Mollendo',	'Agencia Moquegua',	'Agencia Moyobamba',	'Agencia Olmos',	'Agencia Oxapampa',	'Agencia Paita',	'Agencia Perene',	'Agencia Pampa Inalámbrica',	'Agencia Pampas',	'Agencia Pedregal',	'Agencia Pichanaqui',	'Agencia Pisac',	'Agencia Piura',	'Agencia Pucallpa',	'Agencia Puerto Maldonado',	'Agencia Puno',	'Agencia San Juan de Lurigancho',	'Agencia San Juan de Próceres',	'Agencia San Marcos',	'Agencia San Martín de Pangoa',	'Agencia San Martín de Porres',	'Agencia Santa Anita',	'Agencia Santiago de Chuco',	'Agencia Satipo',	'Agencia Sechura',	'Agencia Sede Principal Tacna',	'Agencia Sullana',	'Agencia Tacna Cono Norte',	'Agencia Tacna Cono Sur',	'Agencia Tambo Grande',	'Agencia Tarapoto',	'Agencia Tarma',	'Agencia Tayabamba',	'Agencia Tingo María',	'Agencia Tumbes',	'Agencia Urcos',	'Agencia Ventanilla',	'Agencia Villa El Salvador',	'Agencia Villa María del Triunfo',	'Agencia Villa Rica',	'Agencia Virú',	'Agencia Trujillo',	'Agencia Abancay',	'Agencia Aguaytia',	'Agencia Andahuaylas',	'Agencia Andrés Avelino Cáceres',	'Agencia Anta',	'Agencia Arequipa',	'Agencia Ate',	'Agencia Ayacucho',	'Agencia Bambamarca',	'Agencia Barranca',	'Agencia Cajabamba',	'Agencia Cajamarca',	'Agencia Camaná',	'Agencia Campo Verde',	'Agencia Chocope',	'Agencia Cañete',	'Agencia Carabayllo',	'Agencia Casma',	'Agencia Cayma',	'Agencia Centenario',	'Agencia Cerro de Pasco',	'Agencia Cerro colorado',	'Agencia Chachapoyas',	'Agencia Chepén',	'Agencia Chiclayo',	'Agencia Chilca',	'Agencia Chimbote',	'Agencia Chivay',	'Agencia Chorrillos',	'Agencia Chosica',	'Agencia Chota',	'Agencia Chulucanas',	'Agencia Chupaca',	'Agencia Chuquibamba',	'Agencia Ciudad Constitución',	'Agencia Cocachacra',	'Agencia Constitución',	'Agencia Corire',	'Agencia Cusco',	'Agencia El Porvenir',	'Agencia El Tambo',	'Agencia Huachipa',	'Agencia Huacho',	'Agencia Huamachuco',	'Agencia Huancavelica',	'Agencia Huancabamba',	'Agencia Huánuco',	'Agencia Huaraz',	'Agencia Huarmaca',	'Agencia Huaycán',	'Agencia Ica',	'Agencia Iquitos',	'Agencia Jaén',	'Agencia Jauja',	'Agencia Jicamarca',	'Agencia Juliaca',	'Agencia La Esperanza',	'Agencia La Unión',	'Agencia La Joya',	'Agencia La Merced',	'Agencia La Negrita',	'Agencia La Oroya',	'Agencia Los Olivos',	'Agencia Lurín',	'Agencia Manchay',	'Agencia Mollendo',	'Agencia Moquegua',	'Agencia Moyobamba',	'Agencia Olmos',	'Agencia Oxapampa',	'Agencia Paita',	'Agencia Perene',	'Agencia Pampa Inalámbrica',	'Agencia Pampas',	'Agencia Pedregal',	'Agencia Pichanaqui',	'Agencia Pisac',	'Agencia Piura',	'Agencia Pucallpa',	'Agencia Puerto Maldonado',	'Agencia Puno',	'Agencia San Juan de Lurigancho',	'Agencia San Juan de Próceres',	'Agencia San Marcos',	'Agencia San Martín de Pangoa',	'Agencia San Martín de Porres',	'Agencia Santa Anita',	'Agencia Santiago de Chuco',	'Agencia Satipo',	'Agencia Sechura',	'Agencia Sede Principal Tacna',	'Agencia Sullana',	'Agencia Tacna Cono Norte',	'Agencia Tacna Cono Sur',	'Agencia Tambo Grande',	'Agencia Tarapoto',	'Agencia Tarma',	'Agencia Tayabamba',	'Agencia Tingo María',	'Agencia Tumbes',	'Agencia Urcos',	'Agencia Ventanilla',	'Agencia Villa El Salvador',	'Agencia Villa María del Triunfo',	'Agencia Villa Rica',	'Agencia Virú',	'Agencia Trujillo'];
   entidadlista: string[] ;
   estadolista: string[];
-  doughnutChartLabels: Label[] =  ['Registrado','Aceptado','Devuelto','Rechazado','Cerrado'];
+  doughnutChartLabels: Label[] =  ['Registrados','En Proceso','Procesados','Observados','Anulados'];
   barChartPlugins = [pluginDataLabels];
   doughnutChartType: ChartType = 'doughnut';
   doughnutChartData: MultiDataSet = [[10,4,6,6,2]];
@@ -125,14 +110,13 @@ export class MaestrocargasComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'id': return compare(a.id, b.id, isAsc);
-        case 'tipodocumento': return compare(a.tipodocumento, b.tipodocumento, isAsc);
-        case 'tiporequerimiento': return compare(a.tiporequerimiento, b.tiporequerimiento, isAsc);
-        case 'entidad': return compare(a.entidad, b.entidad, isAsc);
-        case 'tipocarga': return compare(a.tipocarga, b.tipocarga, isAsc);
-        case 'oficioexpediente': return compare(a.oficioexpediente, b.oficioexpediente, isAsc);
+        case 'ruta': return compare(a.ruta, b.ruta, isAsc);
+        case 'solicitudes': return compare(a.solicitudes, b.solicitudes, isAsc);
         case 'implicados': return compare(a.implicados, b.implicados, isAsc);
-        case 'usuario': return compare(a.usuario, b.usuario, isAsc);  
-        case 'fecha': return compare(a.fecha, b.fecha, isAsc);
+        case 'fecharegistro': return compare(a.fecharegistro, b.fecharegistro, isAsc);
+        case 'horaproceso': return compare(a.horaproceso, b.horaproceso, isAsc);
+        case 'horatermin': return compare(a.horatermino, b.horatermino, isAsc);
+        case 'usuario': return compare(a.usuario, b.usuario, isAsc);
         case 'estado': return compare(a.estado, b.estado, isAsc);
         default: return 0;
       }
