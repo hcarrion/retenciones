@@ -2,11 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatTableDataSource, MAT_DIALOG_DATA } from '@angular/material';
-import { IniciativaMainFire } from 'src/app/shared/models/iniciativa-main-fire';
-import { ColaboradorDetalleFire } from 'src/app/shared/models/colaborador-detalle-fire';
-import { FirebaseColaboradorService } from 'src/app/shared/services/firebase-colaborador.service';
-import { FirebaseIniciativaMainService } from 'src/app/shared/services/firebase-iniciativa-main.service';
-import { ColaboradorFire } from 'src/app/shared/models/colaborador-fire';
 
 
 @Component({
@@ -21,11 +16,8 @@ export class DialogAccesoComponent implements OnInit {
   loading: boolean;
   password: string;
   registerForm: FormGroup;
-  iniciativa= new MatTableDataSource<IniciativaMainFire>([]);
-  colaboradorDetFireList: ColaboradorDetalleFire[] = [];
   
-  constructor(private dialogRef: MatDialogRef<DialogAccesoComponent>, private formBuilder: FormBuilder,
-    private firebaseColaboradores: FirebaseColaboradorService){}
+  constructor(private dialogRef: MatDialogRef<DialogAccesoComponent>, private formBuilder: FormBuilder){}
     
   get f() { return this.registerForm.controls; }
   
@@ -52,42 +44,11 @@ export class DialogAccesoComponent implements OnInit {
       this.usuario= usu;
       this.password= pwd;
       this.mensaje="";
-      localStorage.setItem("usuario","");
-      localStorage.setItem("nomusu","");
-      localStorage.setItem("cargousu","");
-      localStorage.setItem("perfil","");
-      let colaboradoresRef = this.firebaseColaboradores.getColaboradores();
-
-      colaboradoresRef.subscribe(data => {data.forEach(colabObj => {
-          let colabObject= colabObj.payload.doc.data() as ColaboradorFire;
-          colabObject.colaboradores.forEach(dtos=>{
-            if (dtos.codigoUsuario == usu ) {               
-              localStorage.setItem("usuario",dtos.codigoUsuario);
-              localStorage.setItem("nomusu",dtos.nombres);
-              localStorage.setItem("cargousu",dtos.cargo);
-              localStorage.setItem("perfil",dtos.perfil);
-              this.loading = false;
-              this.dialogRef.close(dtos.perfil);
-              return;
-              }
-          })
-          if (localStorage.getItem("usuario")==undefined){
-            this.mensaje="Error: el usuario no existe en la coleccion de colaboradores, verifique o conuniquese con su administrador"; 
-            this.loading = false;
-            return;
-          }else if (localStorage.getItem("usuario")==""){
-            this.mensaje="Error: el usuario no existe en la coleccion de colaboradores, verifique o conuniquese con su administrador"; 
-            this.loading = false;
-            return;
-          }else if (localStorage.getItem("usuario")!=usu){
-            this.mensaje="Error: el usuario no existe en la coleccion de colaboradores, verifique o conuniquese con su administrador";
-            this.loading = false;
-            return;
-          }
-        });
-      });
+      localStorage.setItem("usuario","THCAL001");
+      localStorage.setItem("nomusu","HARRY CARRION LEON");
+      localStorage.setItem("cargousu","ANALISTA DE SISTEMAS");
+      localStorage.setItem("perfil","ADMINISTRADOR");
+      this.dialogRef.close();
     }
-    
-  }
- 
+  } 
 }

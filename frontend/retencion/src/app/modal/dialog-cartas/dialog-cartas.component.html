@@ -1,0 +1,104 @@
+<div *ngIf="loading" class="content-load">
+    <br>
+    <mat-spinner class="child-load"></mat-spinner>
+    <br>
+    <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+</div>
+<div [formGroup]="regCartas">
+    <div class="pipeline white lined-primary">
+        <div class="pipeline-header">
+            <h6 class="pipeline-name">
+                 PLANTILLAS DE CARTAS 
+            </h6> 
+            <div style="color: whitesmoke;" class="pipeline-settings os-dropdown-trigger">
+                <button style="background-color:chocolate; color: aliceblue;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">New</mat-icon>
+                        <span>Nuevo</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">refresh</mat-icon>
+                        <span>Actualizar</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">saved</mat-icon>
+                        <span>Aceptar</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">highlight_off</mat-icon>
+                        <span>Salir</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+
+        <div class="example-container2 mat-elevation-z8" style="width: 100%;" >
+            <table width=100% height=100% style="border-width: 0.1px; padding: 0.2px; border-style:dotted; border-color:cadetblue;">
+                <tr>
+                    <td colspan="2">
+                        <div class="example-container1 mat-elevation-z8" style="width: 100%;" >        
+                            <table style="border-width: 0.1px; padding: 0.2px; border-style:dotted;
+                            border-color:cadetblue;" matSort (matSortChange)="sortDataP($event)" bordered="true" width=100%>
+                                <tr class="encabezado">
+                                <th mat-sort-header="id">ID</th>
+                                <th mat-sort-header="plantilla" align="center">PLANTILLA</th>                                
+                                <th mat-sort-header="tipo" align="center">TIPO</th>
+                                <th mat-sort-header="seleccion" align="center">SELECCION</th>
+                                </tr>
+                            
+                                <tr *ngFor="let dessertp of sortedDatap" class="detalle">
+                                <td class="pointer" style="text-align: center;">{{dessertp.id}}</td>
+                                <td class="pointer">{{dessertp.plantilla}}</td>
+                                <td class="pointer">{{dessertp.tipo}}</td> 
+                                <td align="center" class="pointer">
+                                    <input type="checkbox" class="pointer" [value]="dessertp.seleccion" id="seleccion" (change)="onCheckboxChange($event, dessertp.plantilla)"/>
+                                </td>                               
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="encabezado" colspan="3" style="height:32 px;">
+                    <th colspan="3">EDITOR DE DOCUMENTOS</th>                            
+                </tr>
+                <tr>
+                    <td width=80%>
+                        <table width=100% class="MsoNormalTable" border="1" cellspacing="0" style="border-width: 0.1px; padding: 0.2px; border-style:dotted; border-color:cadetblue;">
+                            <tbody>                        
+                                <tr>
+                                    <td>                                        
+                                        <angular-editor style="font-size: xx-small;" [(ngModel)]="actSemanaAnterior" id="editor1" [config]="editorConfig" [ngModelOptions]="{standalone: true}"></angular-editor>
+                                    </td>
+                                </tr>
+                            </tbody>    
+                        </table>    
+                    </td>  
+                    <td width=20% style="vertical-align: top;">
+                        <div class="example-container1 mat-elevation-z8" style="width: 100%;" >        
+                            <table style="border-width: 0.1px; padding: 0.2px; border-style:dotted;
+                            border-color:cadetblue;" matSort (matSortChange)="sortData($event)" bordered="true" width=100%>
+                                <tr class="encabezado">
+                                <th mat-sort-header="id">ID</th>
+                                <th mat-sort-header="columna" align="center">COLUMNA</th>                                
+                                <th mat-sort-header="seleccion" align="center">SELECCION</th>                            
+                                </tr>
+                            
+                                <tr *ngFor="let dessert of sortedData" class="detalle">
+                                <td class="pointer" style="text-align: center;">{{dessert.id}}</td>
+                                <td class="pointer">{{dessert.columna}}</td> 
+                                <td align="center" class="pointer">
+                                    <input type="checkbox" class="pointer" [value]="dessert.seleccion" id="seleccion" (change)="onCheckboxChange($event, dessert.columma)" />
+                                </td>                               
+                            </table>
+                        </div>                    
+                    </td>
+                </tr>              
+                <tr>
+                    <td><button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect>Grabar Plantilla</button></td>
+                </tr>                                                          
+            </table>                                    
+        </div>
+    </div>
+</div>

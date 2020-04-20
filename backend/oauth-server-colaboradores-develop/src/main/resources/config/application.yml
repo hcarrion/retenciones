@@ -1,0 +1,79 @@
+# ===================================================================
+# Spring Boot configuración.
+#
+# Esta configuración será sobreescrita por el perfil de Spring en uso,
+# por ejemplo application-dev.yml si tu usas el perfil "dev".
+# ===================================================================
+
+spring:
+  application:
+    name: oauth-server-colaboradores
+  profiles:
+    active: activatedProperties@
+    
+  devtools:
+    restart:
+      enabled: false
+  
+server:
+  port: 8092
+  context-path: /uaa
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+      
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+
+movcli:      
+  cors: 
+      enabled: true 
+      mapping: "/**" 
+      allowedOrigins: "*" 
+      allowedMethods: POST,GET,OPTIONS,DELETE 
+      maxAge: 3600
+  jaxb:
+    marshaller:
+      packagescan: org.fmbbva.movcli.piloto.ws.model
+      
+oauth2:
+  client:
+    id: portal
+    resource-id: portal
+    client-id: demo
+    client-secret: secret_demo
+    authorized-grant-types: password, refresh_token 
+    access-token-validity-seconds: 600
+    refresh-token-validity-seconds: 600
+    scopes: read, write, trust       
+
+
+ldap:
+  url: ldap://172.20.6.20:389
+  domain: cnpdes.local
+  rootDn: dc=cnpdes,dc=local
+  userSearch: (&(sAMAccountName={0})(ObjectClass=organizationalPerson)(ObjectClass=person))
+  searchBase: ou=Desarrollo
+  groupSearchBase: OU=Grupos,OU=Gestion 
+  searchFilter: (&(member={0}) (objectclass=group))
+  managerDn: srv_mov_ldap@cnpdes.local
+  managerPwd: Mov.4325
+        
+oauthData:
+  database:
+    driver: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://localhost/oauth
+    url: jdbc:mysql://localhost/oauth_colaboradores
+    user: oauthuser
+    password: movaseoauth
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxIdle: 50
+    timeBetweenEvictionRunsMillis: 30000
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    logAbandoned: true
+    testWhileIdle: true

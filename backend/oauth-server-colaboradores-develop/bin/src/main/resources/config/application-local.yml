@@ -1,0 +1,40 @@
+# ===================================================================
+# Spring Boot configuración para el perfil "local".
+#
+# Esta configuración sobreescribe al fichero application.yml.
+# ===================================================================
+
+debug:
+  false
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      
+  ldap:
+    embedded:
+      ldif: classpath:test-server.ldif
+      
+  h2:
+    console:
+      enabled: true
+    path: /h2-console
+           
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+
+movcli:
+  logger:
+    logstash:
+      - name: clientlog
+        appender:
+          destination: localhost:4560 
+        encoder:
+          includeMDC: true
+      - name: auditlog
+        appender:
+          destination: localhost:4561
+        encoder:
+          includeMDC: true

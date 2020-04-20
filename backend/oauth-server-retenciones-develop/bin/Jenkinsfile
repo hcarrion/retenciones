@@ -1,0 +1,157 @@
+#!/usr/bin/env groovy
+
+@Library('pipeline@master')
+import static org.fmbbva.movcli.pipeline.Utilities.*
+import org.fmbbva.movcli.pipeline.*
+
+withNotificationAndClean(this) {
+
+	stage ('Checkout sources') {
+		node {
+			git branch: "${env.BRANCH_NAME}", url: 'git@54.76.148.112:asesores-arq-security/oauth-server.git'
+		}
+	}
+
+	// Estrategía de entrega según la rama
+	deliveryExecutor.run([new DevelopStrategy(),new ReleaseStrategy(),new FeatureStrategy()], env.BRANCH_NAME, this)
+
+}
+
+def featureStrategy(script) {
+
+	return {
+
+		stage("Build") {
+				
+			node {
+				mvn this, "${env.WORKSPACE}", "clean package"	
+			}
+			
+		}
+		
+		stage('Provision FEATURE env') {
+					
+			provisionWithAnsible('jar-service', 'feature') {
+					
+				withArtifact {
+				  file = "target/*.jar"
+				}
+				
+			}
+				
+		}		
+
+	}
+
+}
+
+def developStrategy(script){
+
+	return {
+
+		stage("Build") {
+			
+			node {
+				mvn this, "${env.WORKSPACE}", "clean package"
+			}
+			
+		}
+		
+		stage('Provision DEV env') {
+					
+			provisionWithAnsible('jar-service', 'dev') {
+				
+				withArtifact {
+				  file = "target/*.jar"
+				}
+				
+			}	
+		}		
+
+	}
+}
+
+def releaseStrategy(script) {
+
+	return {
+	
+		stage ('Change version'){
+		
+			mavenDeltaVersion {
+				mode = 'release'
+			}
+			
+		}
+		
+		stage("Build") {
+		
+			node {						
+				mvn this, "${env.WORKSPACE}", 'clean package -Dpmd.skip=true -Dcheckstyle.skip=true -Dskip.surefire.tests=true'
+			}
+			
+		}
+		
+		stage ('Approve deploy to QA') {
+			
+			input message: "¿Preparados para desplegar en QA?", ok: "Sí, preparados.", submitter: "approval"
+            
+        }
+
+		stage('Provision QA env') {
+		
+			provisionWithAnsible('jar-service', 'pre-n1') {
+
+				withArtifact {
+				  file = "target/*.jar"
+				}
+				
+			}
+			
+		}
+		
+		stage ('Approve QA version') {
+            
+			input message: "¿La certificación ha sido exitosa?", ok: "Sí, se aprueba la versión.", submitter: "approval"
+			
+        }
+        
+        stage ('Approve deploy to PRO') {
+			
+			input message: "¿Preparados para desplegar en PRO?", ok: "Sí, preparados.", submitter: "approvalProd"
+            
+		}
+		
+		stage ('Provision PRO env') {
+		
+			provisionWithAnsible('jar-service', 'pro') {
+
+				withArtifact {
+				  file = "target/*.jar"
+				}
+				
+			}
+		}
+		
+		stage ('Integrates with master branch') {
+		
+			gitPushMasterAndTag {
+				userEmail = "jenkins@fmbbva.es"
+			}
+			
+		}
+		
+		stage ('Integrates with develop branch') {
+		
+			gitlabMergeRequest {
+				urlApi = "https://54.76.148.112:7443/gitlab/api/v3/projects"
+				idProject = "139"
+				nameProject = "oauth-server"
+				groupProject = "asesores-arq-security"
+				targetBranch = "develop"
+			}
+			
+		}
+		
+	}
+
+}

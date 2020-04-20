@@ -1,0 +1,58 @@
+# ===================================================================
+# Spring Boot configuración para el perfil "pro".
+#
+# Esta configuración sobreescribe al fichero application.yml.
+# ===================================================================
+
+debug:
+  false
+
+spring:
+  devtools:
+    restart:
+      enabled: true        
+
+oauthData:
+  database:
+    driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/oauth
+    user: oauthuser
+    password: movcorauth
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxIdle: 50
+    timeBetweenEvictionRunsMillis: 30000
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    logAbandoned: true
+    testWhileIdle: true
+
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+
+movcli:
+  logger:
+    logstash:
+      - name: clientlog
+        appender:
+          destination: 172.20.4.23:4560 
+        encoder:
+          includeMDC: true
+      - name: auditlog
+        appender:
+          destination: 172.20.4.23:4561
+        encoder:
+          includeMDC: true
+
+ldap:
+  url: ldap://192.168.28.11
+  domain: fe.local
+  rootDn: DC=fe,DC=local
+  userSearch: (&(sAMAccountName={0})(ObjectClass=organizationalPerson)(ObjectClass=person))
+  searchBase: DC=fe,DC=local
+  groupSearchBase: DC=fe,DC=local 
+  searchFilter: (&(member={0}) (objectclass=group))
+  managerDn: movilidad@fe.local
+  managerPwd: 5KMuewi

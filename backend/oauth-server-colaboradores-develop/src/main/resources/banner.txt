@@ -1,0 +1,23 @@
+
+                                                                                                                                                  
+                                                                                                                                                  
+                                                       ffffffffffffffff   iiii                                                                    
+                                                      f::::::::::::::::f i::::i                                                                   
+                                                     f::::::::::::::::::f iiii                                                                    
+                                                     f::::::fffffff:::::f                                                                         
+    cccccccccccccccc  ooooooooooo  nnnn  nnnnnnnn    f:::::f       fffffiiiiiii  aaaaaaaaaaaaa nnnn  nnnnnnnn   zzzzzzzzzzzzzzzzz aaaaaaaaaaaaa   
+  cc:::::::::::::::coo:::::::::::oon:::nn::::::::nn  f:::::f            i:::::i  a::::::::::::an:::nn::::::::nn z:::::::::::::::z a::::::::::::a  
+ c:::::::::::::::::o:::::::::::::::n::::::::::::::nnf:::::::ffffff       i::::i  aaaaaaaaa:::::n::::::::::::::nnz::::::::::::::z  aaaaaaaaa:::::a 
+c:::::::cccccc:::::o:::::ooooo:::::nn:::::::::::::::f::::::::::::f       i::::i           a::::nn:::::::::::::::zzzzzzzz::::::z            a::::a 
+c::::::c     cccccco::::o     o::::o n:::::nnnn:::::f::::::::::::f       i::::i    aaaaaaa:::::a n:::::nnnn:::::n     z::::::z      aaaaaaa:::::a 
+c:::::c            o::::o     o::::o n::::n    n::::f:::::::ffffff       i::::i  aa::::::::::::a n::::n    n::::n    z::::::z     aa::::::::::::a 
+c:::::c            o::::o     o::::o n::::n    n::::nf:::::f             i::::i a::::aaaa::::::a n::::n    n::::n   z::::::z     a::::aaaa::::::a 
+c::::::c     cccccco::::o     o::::o n::::n    n::::nf:::::f             i::::ia::::a    a:::::a n::::n    n::::n  z::::::z     a::::a    a:::::a 
+c:::::::cccccc:::::o:::::ooooo:::::o n::::n    n::::f:::::::f           i::::::a::::a    a:::::a n::::n    n::::n z::::::zzzzzzza::::a    a:::::a 
+ c:::::::::::::::::o:::::::::::::::o n::::n    n::::f:::::::f           i::::::a:::::aaaa::::::a n::::n    n::::nz::::::::::::::a:::::aaaa::::::a 
+  cc:::::::::::::::coo:::::::::::oo  n::::n    n::::f:::::::f           i::::::ia::::::::::aa:::an::::n    n::::z:::::::::::::::za::::::::::aa:::a
+    cccccccccccccccc  ooooooooooo    nnnnnn    nnnnnfffffffff           iiiiiiii aaaaaaaaaa  aaaannnnnn    nnnnnzzzzzzzzzzzzzzzzz aaaaaaaaaa  aaaa
+                                                                                                                                                  
+                                                                                                                                                  
+                                    FINANCIERA CONFIANZA - COMPONENTE OAUTH PARA EL APP RETENCIONES
+

@@ -1,0 +1,58 @@
+# ===================================================================
+# Spring Boot configuración para el perfil "pre".
+#
+# Esta configuración sobreescribe al fichero application.yml.
+# ===================================================================
+
+debug:
+  false
+
+spring:
+  devtools:
+    restart:
+      enabled: true        
+
+oauthData:
+  database:
+    driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/oauth
+    user: oauthuser
+    password: movaseoauth
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxIdle: 50
+    timeBetweenEvictionRunsMillis: 30000
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    logAbandoned: true
+    testWhileIdle: true
+
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+
+movcli:
+  logger:
+    logstash:
+      - name: clientlog
+        appender:
+          destination: localhost:4560 
+        encoder:
+          includeMDC: true
+      - name: auditlog
+        appender:
+          destination: localhost:4561
+        encoder:
+          includeMDC: true
+
+ldap:
+  url: ldap://ldapqa.qa.pvt:389
+  domain: qa.pvt
+  rootDn: ou=QA,dc=qa,dc=pvt
+  userSearch: (&(sAMAccountName={0})(ObjectClass=organizationalPerson)(ObjectClass=person))
+  searchBase: ou=QA
+  groupSearchBase: OU=GRUPOS,OU=Gestion 
+  searchFilter: (&(member={0}) (objectclass=group))
+  managerDn: srv_mov_ldap@qa.pvt
+  managerPwd: Mnl71d1s@18

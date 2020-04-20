@@ -10,14 +10,21 @@
   <mat-sidenav-container class="example-sidenav-container"> 
     <mat-sidenav class="mat-toolbar mat-primary" #snav style="height: 100%; weight:100%;">
       <mat-nav-list class="example-toolbar mat-toolbar mat-primary mat-toolbar-single-row">
-          <button mat-menu-item [matMenuTriggerFor]="vertebrates">
-            <mat-icon style="color:aliceblue;">settings</mat-icon>
-            <span style="color:aliceblue;">Configuracion</span>
-            <mat-icon style="color:aliceblue;">last_page</mat-icon></button>
-          <button mat-menu-item (click)="snav.toggle()">
+          <button mat-menu-item [routerLink]="['maestrocargas']" (click)="snav.toggle()">
+            <mat-icon style="color:aliceblue;">library_books</mat-icon>
+            <span style="color:aliceblue;">Cargas Masivas</span></button>
+          <button mat-menu-item [routerLink]="['solicitud']" (click)="snav.toggle()">
             <mat-icon style="color:aliceblue;">event_note</mat-icon>
-            <span style="color:aliceblue;">Solicitud</span></button>
-          <button mat-menu-item (click)="onSidenavClose()"><mat-icon style="color:aliceblue;">power_setting</mat-icon>
+            <span style="color:aliceblue;">Solicitudes</span></button>
+          <button mat-menu-item (click)="snav.toggle()">
+              <mat-icon style="color:aliceblue;">assessment</mat-icon>
+              <span style="color:aliceblue;">Dashboard</span></button>
+          <button mat-menu-item [matMenuTriggerFor]="vertebrates" >
+                <mat-icon style="color:aliceblue;">settings</mat-icon>
+                <span style="color:aliceblue;">Configuracion</span>
+                <mat-icon style="color:aliceblue;">last_page</mat-icon></button>              
+          <button mat-menu-item (click)="snav.toggle()">
+            <mat-icon style="color:aliceblue;">settings_power</mat-icon>
             <span style="color:aliceblue;">Salir</span></button>
 
         <mat-menu #vertebrates="matMenu">
@@ -32,39 +39,7 @@
             <span style="color: #3f51b5;">Maestro Tablas</span></button>
         </mat-menu>
         
-        <mat-menu #invertebrates="matMenu">
-          <button mat-menu-item>Insects</button>
-          <button mat-menu-item>Molluscs</button>
-          <button mat-menu-item>Crustaceans</button>
-          <button mat-menu-item>Corals</button>
-          <button mat-menu-item>Arachnids</button>
-          <button mat-menu-item>Velvet worms</button>
-          <button mat-menu-item>Horseshoe crabs</button>
-        </mat-menu>
-        
-        <mat-menu #fish="matMenu">
-          <button mat-menu-item>Baikal oilfish</button>
-          <button mat-menu-item>Bala shark</button>
-          <button mat-menu-item>Ballan wrasse</button>
-          <button mat-menu-item>Bamboo shark</button>
-          <button mat-menu-item>Banded killifish</button>
-        </mat-menu>
-        
-        <mat-menu #amphibians="matMenu">
-          <button mat-menu-item>Sonoran desert toad</button>
-          <button mat-menu-item>Western toad</button>
-          <button mat-menu-item>Arroyo toad</button>
-          <button mat-menu-item>Yosemite toad</button>
-        </mat-menu>
-        
-        <mat-menu #reptiles="matMenu">
-          <button mat-menu-item>Banded Day Gecko</button>
-          <button mat-menu-item>Banded Gila Monster</button>
-          <button mat-menu-item>Black Tree Monitor</button>
-          <button mat-menu-item>Blue Spiny Lizard</button>
-          <button mat-menu-item disabled>Velociraptor</button>
-        </mat-menu>
-      </mat-nav-list>
+        </mat-nav-list>
     </mat-sidenav>
     
     <mat-sidenav-content style="height: 100%;">
@@ -76,7 +51,7 @@
       <div class="container text-center pb-5; ">
         <p style=color:#3F52B6>
           <strong>
-            El EQUIPO DE SISTEMAS "¡ Un equipo un objetivo... !"
+            Autor: "Area de Desarrollo TI" - Derechos Reservados "Financiera Confianza 2020"
           </strong>
         </p>
       </div>

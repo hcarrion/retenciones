@@ -1,0 +1,255 @@
+<div class="example-container" [formGroup]="listSolicitud">
+    <div *ngIf="loading" class="content-load">
+        <br>
+        <mat-spinner class="child-load"></mat-spinner>
+        <br>
+        <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+    </div>
+
+    <div class="pipeline white lined-primary">
+        <div class="pipeline-header">
+            <h6 class="pipeline-name">
+                Lista de Solicitudes Judiciales                
+            </h6> 
+
+            <div style="color: whitesmoke;" class="pipeline-settings os-dropdown-trigger">
+                <button style="background-color:#3f51b5; color: aliceblue;" mat-icon-button [matMenuTriggerFor]="menu" >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item (click)="openDialogRecursos()">
+                        <mat-icon style="background-color: #3f51b5; color: aliceblue;">record_voice_overy</mat-icon>
+                        <span>Nuevo</span>
+                    </button>
+                    
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item (click)="openDialogCargaMasiva()">
+                        <mat-icon style="background-color: #3f51b5; color: aliceblue;">cloud_upload</mat-icon>
+                        <span>Carga Solicitudes Masiva</span>
+                    </button>
+                    
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: #3f51b5; color: aliceblue;">refresh</mat-icon>
+                        <span>Actualizar</span>
+                    </button>
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: #3f51b5; color: aliceblue;">saved</mat-icon>
+                        <span>Grabar</span>
+                    </button>
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item>
+                    <mat-icon style="background-color: #3f51b5; color: aliceblue;">file_download</mat-icon>
+                    <span>Exportar</span>
+                    </button>
+                    <button style="background-color: #3f51b5; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: #3f51b5; color: aliceblue;">highlight_off</mat-icon>
+                        <span>Salir</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>           
+
+        <div class="example-container1 mat-elevation-z8" style="width: 100%;" >  
+            
+            <table height=auto width=80% style="border-width: 0.1px; padding: 0.2px; border-style:dotted; border-color:cadetblue;">
+                            <tr class="encabezado" >
+                                <th colspan="11">FILTRO DE BUSQUEDA</th>
+                                <th align="right" class="pointer" (click)="ocultar()"><mat-icon>{{this.tipoflecha}}</mat-icon></th>                            
+                            </tr>
+                            <tr *ngIf=this.oculta>
+                                <td>
+                                    <div style="width:60px;">
+                                        <mat-form-field style="font-size: xx-small;">
+                                            <input formControlName="idSolicitud" type="number" class="idSolicitud" matInput #inputHoras type="text" placeholder="Nro de Oficios/Cartas/Expediente">
+                                        </mat-form-field>                                    
+                                    </div>                            
+                                </td>
+                                <td>
+                                    <div style="width:120px;">
+                                        <mat-form-field style="font-size: xx-small;">
+                                            <input [formControl]="expediente" class="oficioexpediente" matInput #inputHoras type="text" placeholder="Nro de Oficios/Cartas/Expediente">
+                                        </mat-form-field>
+                                    </div>
+                                </td>            
+                                <td>
+                                    <div style="width:120px;">
+                                        <mat-form-field>
+                                            <mat-label  style="font-size: xx-small;">Tipo de Documento</mat-label>
+                                            <mat-select [formControl]="tipodocumento" multiple (selectionChange)="select1(tipodocumento)"  style="font-size: xx-small;">
+                                                <mat-select-trigger>
+                                                {{tipodocumento.value ? tipodocumento.value[0] : ''}}
+                                                <span *ngIf="tipodocumento.value?.length > 1" class="example-additional-selection">
+                                                    (+{{tipodocumento.value.length - 1}} {{tipodocumento.value?.length === 2 ? 'Otros' : 'Otros'}})
+                                                </span>
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let tipodocumentos of tipodocumentolista" [value]="tipodocumentos">{{tipodocumentos}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width:120px;">        
+                                    <mat-form-field>
+                                        <mat-label   style="font-size: xx-small;">Tipo de Requerimiento</mat-label>
+                                        <mat-select [formControl]="tiporequerimiento" multiple [(value)]="selected"  (selectionChange)="selecttiporeq(selected)"   style="font-size: xx-small;">
+                                            <mat-select-trigger>
+                                            {{tiporequerimiento.value ? tiporequerimiento.value[0] : ''}}
+                                            <span *ngIf="tiporequerimiento.value?.length > 1" class="example-additional-selection">
+                                                (+{{tiporequerimiento.value.length - 1}} {{tiporequerimiento.value?.length === 2 ? 'Otros' : 'Otros'}})
+                                            </span>
+                                            </mat-select-trigger>
+                                            <mat-option *ngFor="let tiporequerimientos of tiporequerimientolista" [value]="tiporequerimientos">{{tiporequerimientos}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width:120px;">
+                                    <mat-form-field>
+                                        <mat-label   style="font-size: xx-small;">Entidad</mat-label>
+                                        <mat-select [formControl]="entidad" multiple style="font-size: xx-small;">
+                                            <mat-select-trigger>
+                                            {{entidad.value ? entidad.value[0] : ''}}
+                                            <span *ngIf="entidad.value?.length > 1" class="example-additional-selection">
+                                                (+{{entidad.value.length - 1}} {{entidad.value?.length === 2 ? 'Otros' : 'Otros'}})
+                                            </span>
+                                            </mat-select-trigger>
+                                            <mat-option *ngFor="let entidades of entidadlista" [value]="entidades">{{entidades}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width:120px; font-size: xx-small;">
+                                        <mat-form-field style="font-size: xx-small; width: 100%; display:block;">
+                                            <mat-select [formControl]="agencia" placeholder="Agencia"
+                                                #singleSelect style="font-size: small;" [(ngModel)]="agencialista" [compareWith]="compareItems">
+                                                <mat-option>
+                                                    <ngx-mat-select-search [formControl]="agenciaFilterCtrl"
+                                                        placeholderLabel="Buscar Agencia..."
+                                                        noEntriesFoundLabel="'No se encontraron agencia coincidentes'">
+                                                    </ngx-mat-select-search>
+                                                </mat-option>
+                                                <mat-option *ngFor="let agencialet of agencialista" [value]="agencialet">
+                                                    {{agencialet}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>  
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width:120px;">
+                                        <mat-form-field style="font-size: xx-small;">
+                                            <input formControlName="fechainicio" matInput [matDatepicker]="picker2"
+                                                placeholder="Fecha de inicio" [min]="minDate" [max]="maxDate"
+                                                (dateInput)="changeFech('input', $event)" (dateChange)="changeFech('change', $event)">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>                                
+                                </td>
+                                <td>
+                                    <div style="width:120px;">
+                                        <mat-form-field style="font-size: xx-small;">
+                                            <input formControlName="fechafin" matInput [matDatepicker]="picker"
+                                                placeholder="Fecha de fin" [min]="minDateFin" [max]="maxDateFin"
+                                                (dateInput)="changeFechFin('input', $event)" (dateChange)="changeFechFin('change', $event)">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </td>
+    
+                                <td>
+                                    <div style="width:120px;">
+                                    <mat-form-field>
+                                        <mat-label style="font-size: xx-small;">Estado</mat-label>
+                                        <mat-select [formControl]="estado" multiple style="font-size: xx-small;">
+                                            <mat-select-trigger>
+                                            {{estado.value ? estado.value[0] : ''}}
+                                            <span *ngIf="estado.value?.length > 1" class="example-additional-selection">
+                                                (+{{estado.value.length - 1}} {{estado.value?.length === 2 ? 'Otros' : 'Otros'}})
+                                            </span>
+                                            </mat-select-trigger>
+                                            <mat-option *ngFor="let estados of estadolista" [value]="estados">{{estados}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>                                
+                                </td>
+                                <td><button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect>Filtrar</button></td>
+                                <td><button style="font-size: x-small;" class="btn btn-info btn-rounded waves-effect waves-light" type="button" color="default" rounded="true" mdbWavesEffect>Limpiar</button></td>
+                            </tr>
+            </table>
+
+            <table style="height:auto;">
+                <tr>
+                    <td width=75%>  
+                        <table style="height:auto; border-width: 0.1px; padding: 0.2px; border-style:dotted; 
+                        border-color:cadetblue;" matSort (matSortChange)="sortData($event)" bordered="true" width=100%>
+                            <tr class="encabezado">
+                            <th mat-sort-header="id">ID</th>
+                            <th mat-sort-header="tipodocumento">TIPO DE SOLICITUD</th>
+                            <th mat-sort-header="tiporequerimiento">TIPO DE REGISTRO</th>
+                            <th mat-sort-header="entidad">TIPO DE INGRESO</th>
+                            <th mat-sort-header="oficioexpediente">TIPO DE CARGA</th>
+                            <th mat-sort-header="implicados"># IMPLICADOS</th>
+                            <th mat-sort-header="usuario">USUARIO</th>
+                            <th mat-sort-header="fecha">FECHA Y HORA</th>
+                            <th mat-sort-header="estado">ESTADO</th>
+                            <th mat-sort-header="acc">ACCION</th>
+                            </tr>
+                        
+                            <tr *ngFor="let dessert of sortedData" class="detalle">
+                            <td class="encabezado pointer" style="text-align: center;">{{dessert.id}}</td>
+                            <td>{{dessert.tipodocumento}}</td>
+                            <td>{{dessert.tiporequerimiento}}</td>
+                            <td>{{dessert.entidad}}</td>
+                            <td>{{dessert.oficioexpediente}}</td>
+                            <td align="center">{{dessert.implicados}}</td>
+                            <td align="center">{{dessert.usuario}}</td>
+                            <td>{{dessert.fecha}}</td>
+                            <td align="center">{{dessert.estado}}</td>
+                            <td align="center">
+                                <mat-icon matTooltip="Editar" class="pointer" style="color: #3f51b5;" (click)="openDialogRecursos()">edit</mat-icon>
+                                <mat-icon matTooltip="Implicados" class="pointer" style="color: #3f51b5;" (click)="openDialogImplicados()">people</mat-icon>
+                                <mat-icon matTooltip="Documentos"  class="pointer" style="color:lightgrey;" (click)="openDialogDocumentos()">receipt</mat-icon>
+                                <mat-icon matTooltip="Implicados"  matTooltip="En Proceso" class="pointer" style="color:gold;">info</mat-icon></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width=35%>
+                        <table width=100% height=100% style="border-width: 0.1px; padding: 0.2px; border-style:dotted;
+                        border-color:cadetblue;">
+                            <tr class="encabezado" colspan="3" style="height:32 px;">
+                                <th colspan="3">AVANCES</th>                            
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="chart-wrapper pointer">
+                                        <canvas baseChart  
+                                            [data]="doughnutChartData"
+                                            [labels]="doughnutChartLabels"
+                                            [chartType]="doughnutChartType"
+                                            [options]="chartOptions"
+                                            [plugins]="barChartPlugins"
+                                            (chartHover)="chartHovered($event)"
+                                            (chartClick)="chartClicked($event)">
+                                        </canvas>
+                                    </div>                            
+                                </td>
+                            </tr>
+                            
+                            <tr class="encabezado" colspan="3"><th colspan="3">BUSQUEDA TOTAL EN LA PARRILLA</th></tr>
+                            <tr>
+                                <td colspan="3" style="background-color: beige;">                        
+                                    <input matInput (keyup)="buscarDatos($event.target.value)" style="font-size: xx-small;" placeholder="Buscar">                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 100]" showFirstLastButtons></mat-paginator></td>
+                            </tr>
+                        </table>    
+                    </td>
+                </tr>
+            </table>                                    
+        </div>      
+    </div>
+</div>

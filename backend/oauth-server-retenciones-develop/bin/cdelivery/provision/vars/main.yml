@@ -1,0 +1,5 @@
+app_username: centos
+app_service_name: oauth-server-asesores
+app_jar_name: oauth-server-asesores
+app_root_path: /var/movase
+app_test_endpoint: "/uaa/oauth/token"

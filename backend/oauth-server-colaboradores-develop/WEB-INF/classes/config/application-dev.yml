@@ -1,0 +1,62 @@
+# ===================================================================
+# Spring Boot configuración para el perfil "dev".
+#
+# Esta configuración sobreescribe al fichero application.yml.
+# ===================================================================
+
+debug:
+  false
+
+spring:
+  devtools:
+    restart:
+      enabled: true        
+
+oauthData:
+  database:
+    driver: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://localhost/oauth
+    url: jdbc:mysql://172.20.9.12/oauth
+    user: oauthuser
+    password: movclioauth    
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxIdle: 50
+    timeBetweenEvictionRunsMillis: 30000
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    logAbandoned: true
+    testWhileIdle: true
+
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+    
+movcli:
+  logger:
+    logstash:
+      - name: clientlog
+        appender:
+          destination: localhost:4560 
+        encoder:
+          includeMDC: true
+      - name: auditlog
+        appender:
+          destination: localhost:4561
+        encoder:
+          includeMDC: true
+
+ldap:
+  #url: ldap://192.168.0.34:389
+  url: ldap://172.20.6.20:389
+  #domain: fe.local
+  domain: cnpdes.local
+  #rootDn: OU=Desarrollo,DC=fe,DC=local
+  rootDn: OU=Desarrollo,DC=cnpdes,DC=local
+  userSearch: (&(sAMAccountName={0})(ObjectClass=organizationalPerson)(ObjectClass=person))
+  searchBase: ou=Desarrollo
+  groupSearchBase: OU=Grupos,OU=Gestion 
+  searchFilter: (&(member={0}) (objectclass=group))
+  managerDn: movilidad@fe.local
+  managerPwd: c1QGdPsTlf

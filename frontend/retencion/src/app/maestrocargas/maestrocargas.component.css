@@ -1,0 +1,250 @@
+.mat-form-field {
+    font-size: 14px;
+    width: 95% !important;
+    margin-top: 2%;
+    margin-left: 2%;
+  }
+  
+  .highlight{
+    background: #90c7f7 !important; 
+  }
+  .pointer{
+    cursor:pointer;
+  }
+  .highlight td{
+    color: #ffffff !important;
+  }
+  .matDialog .mat-dialog-container{
+    overflow-y: hidden !important;
+  }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .example-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .mat-table {
+    overflow: auto;
+  }
+  
+  .mat-row:nth-child(even){
+    background-color:rgba(94, 130, 152, 0.05)
+  }
+  
+  /*.mat-row:nth-child(odd){
+    background-color:rgb(247, 241, 241)
+  }
+  */
+  .encabezado{
+      background-color: #eff4fa;
+  }
+  .encabezado th{
+      color: #0d478f;
+      font-size: xx-small   ;
+  }
+ .detalle{
+    font-size: xx-small   ;
+  }
+.filtros{
+    font-size:xx-small;
+}
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  tr.mat-footer-row, tr.mat-row {
+    height: 38px;
+  }
+  tr.mat-header-row {
+    height: 46px;
+  }
+  
+  /* Absolute Center Spinner */
+  .content-load {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  /* Transparent Overlay */
+  .content-load:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  .material-icons{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 15px;
+    width: 15px;
+  }
+  .logo{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 10px;
+    width: 10px;
+  }
+  
+  .example-container1 {
+    height: 450px;
+    overflow: auto;
+  }
+  
+  .pointer{
+    cursor:pointer;
+  }
+  
+  /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+  
+  .example-container1::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  
+  .example-container1::-webkit-scrollbar:vertical {
+    width:10px;
+  }
+  
+  .example-container1::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+  } 
+  
+  .example-container1::-webkit-scrollbar:horizontal {
+    height: 10px;
+  }
+  
+  .example-container1::-webkit-scrollbar-thumb {
+    background-color: #2708af;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+  }
+  
+  .example-container1::-webkit-scrollbar-track {
+    border-radius: 10px;  
+  }
+  
+  /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+  
+  .example-container::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  
+  .example-container::-webkit-scrollbar:vertical {
+    width:10px;
+  }
+  
+  .example-container::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+  } 
+  
+  .example-container::-webkit-scrollbar:horizontal {
+    height: 10px;
+  }
+  
+  .example-container::-webkit-scrollbar-thumb {
+    background-color: #af0885;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+  }
+  
+  .example-container::-webkit-scrollbar-track {
+    border-radius: 10px;  
+  }
+  .mat-cell{
+    font-size: 12px;
+    max-height: 10px;
+    min-height: 20%;
+    border-bottom: none;
+    padding: 0px 0;
+  } 
+  .mat-header-cell{
+    font-size: 12px;
+    max-height: 10px;
+    min-height: 10%;
+    border-bottom: none;
+    padding: 0 0;
+  }
+
+
+/* Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically. */
+	@media
+	only screen 
+    and (max-width: 760px), (min-device-width: 768px) 
+    and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+    tr {
+      margin: 0 0 1rem 0;
+    }
+      
+    tr:nth-child(odd) {
+      background: #ccc;
+    }
+    
+		td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			padding-left: 50%;
+		}
+
+		td:before {
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 0;
+			left: 6px;
+			width: 45%;
+			padding-right: 10px;
+			white-space: nowrap;
+		}
+
+		/*
+		Label the data
+    You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
+		*/
+		td:nth-of-type(1):before { content: "ID LOTE"; }
+		td:nth-of-type(2):before { content: "TIPO DE SOLICITUD"; }
+		td:nth-of-type(3):before { content: "TIPO DE REGISTRO"; }
+		td:nth-of-type(4):before { content: "TIPO DE INGRESO"; }
+		td:nth-of-type(5):before { content: "TIPO DE CARGA"; }
+		td:nth-of-type(6):before { content: "# IMPLICADOS"; }
+		td:nth-of-type(7):before { content: "USUARIO"; }
+		td:nth-of-type(8):before { content: "FECHA Y HORA"; }
+		td:nth-of-type(9):before { content: "ESTADO"; }
+		td:nth-of-type(10):before { content: "ACCION"; }
+	}

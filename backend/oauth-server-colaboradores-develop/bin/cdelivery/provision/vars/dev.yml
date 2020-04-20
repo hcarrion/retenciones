@@ -1,0 +1,8 @@
+spring_app_active_profiles: dev
+
+exec_vm_params: -Xms128m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=256m
+
+nodes:
+  - node:
+      name: node1 
+      port: 6772 

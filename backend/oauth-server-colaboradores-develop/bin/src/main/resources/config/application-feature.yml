@@ -1,0 +1,58 @@
+# ===================================================================
+# Spring Boot configuración para el perfil "dev".
+#
+# Esta configuración sobreescribe al fichero application.yml.
+# ===================================================================
+
+debug:
+  true
+
+spring:
+  devtools:
+    restart:
+      enabled: true        
+
+oauthData:
+  database:
+    driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://52.213.132.189/oauth_movcor
+    user: oauthuser
+    password: movclioauth
+    initialSize: 10
+    minIdle: 10
+    maxActive: 100
+    maxIdle: 50
+    timeBetweenEvictionRunsMillis: 30000
+    removeAbandoned: true
+    removeAbandonedTimeout: 60
+    logAbandoned: true
+    testWhileIdle: true
+
+# ===================================================================
+# Movcli specific properties
+# ===================================================================
+
+oauth2:
+  client:
+    id: portal
+    resource-id: portal
+    client-id: demo
+    client-secret: secret_demo
+    authorized-grant-types: password, refresh_token 
+    access-token-validity-seconds: 600
+    refresh-token-validity-seconds: 600
+    scopes: read, write, trust 
+    
+movcli:
+  logger:
+    logstash:
+      - name: clientlog
+        appender:
+          destination: localhost:4560 
+        encoder:
+          includeMDC: true
+      - name: auditlog
+        appender:
+          destination: localhost:4561
+        encoder:
+          includeMDC: true

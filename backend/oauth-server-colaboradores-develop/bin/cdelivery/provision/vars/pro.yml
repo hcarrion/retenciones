@@ -1,0 +1,6 @@
+spring_app_active_profiles: pro
+
+nodes:
+  - node:
+      name: node1
+      port: 6772 

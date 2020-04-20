@@ -1,0 +1,26 @@
+[feature]
+movcli-dev-integ ansible_ssh_host=34.249.237.243 ansible_ssh_user=centos ansible_ssh_private_key_file=/var/lib/jenkins/pem/movcli-desa-inte.pem
+
+[dev]
+movcorr-dev-ejec-vpn-dev ansible_ssh_host=172.31.231.132 ansible_ssh_user=centos ansible_ssh_private_key_file=/var/lib/jenkins/pem/movfe-desa.pem
+
+[pre-n1]
+movase-dev-ejec-vpn-qa ansible_ssh_host=192.168.0.52 ansible_ssh_user=fondo ansible_ssh_private_key_file=/var/lib/jenkins/pem/fondo.pem
+
+[pro]
+movase-dev-ejec-vpn-pro ansible_ssh_host=192.168.28.26 ansible_ssh_user=fondon2 ansible_ssh_private_key_file=/var/lib/jenkins/pem/fondon2.pem
+
+[feature:vars]
+env=feature
+
+[dev:vars]
+env=dev
+
+[preproduction:children]
+pre-n1
+
+[preproduction:vars]
+env=pre
+
+[pro:vars]
+env=pro

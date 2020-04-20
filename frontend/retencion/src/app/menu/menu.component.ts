@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-
 import { map, shareReplay } from 'rxjs/operators';
 import { DialogAccesoComponent } from '../modal/dialog-acceso/dialog-acceso.component';
 import { MatDialog } from '@angular/material';
@@ -16,19 +15,8 @@ export class MenuComponent implements OnDestroy  {
   mobileQuery: MediaQueryList;
   usuario: string;
   perfil: string;
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-  tipomenu: string;
-  pantallaacceso: boolean[]=[];
-  fillerContent = Array.from({length: 50}, () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
-
+  pantallaacceso: boolean[]=[];  
   private _mobileQueryListener: () => void;
-
-
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -70,15 +58,15 @@ export class MenuComponent implements OnDestroy  {
 
   }
 
-
+  oculta(){
+    localStorage.setItem("indinicio","false");
+  }
 
   readLocalStorageValue(key) {
     let value =   localStorage.getItem(key);
-
     if(value == undefined) {
       value =='false';
     }
-    
     return value;
   }
 

@@ -32,6 +32,14 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DialogAccesoComponent } from './modal/dialog-acceso/dialog-acceso.component';
 import { EmailFireService } from './shared/services/email-fire.service';
+import { SolicitudComponent } from './solicitud/solicitud.component';
+import { DialogRegistraSolicitudComponent } from './modal/dialog-registra-solicitud/dialog-registra-solicitud.component';
+import { DialogListaImplicadosComponent } from './modal/dialog-lista-implicados/dialog-lista-implicados.component';
+import { DialogConsultaExistenciaComponent } from './modal/dialog-consulta-existencia/dialog-consulta-existencia.component';
+import { DialogConsultaDocumentosComponent } from './modal/dialog-consulta-documentos/dialog-consulta-documentos.component';
+import { DialogCargaMasivaComponent } from './modal/dialog-carga-masiva/dialog-carga-masiva.component';
+import { DialogCartasComponent } from './modal/dialog-cartas/dialog-cartas.component';
+import { MaestrocargasComponent } from './maestrocargas/maestrocargas.component';
 
 
 @NgModule({
@@ -39,7 +47,15 @@ import { EmailFireService } from './shared/services/email-fire.service';
   [
     AppComponent,
     MenuComponent,
-    DialogAccesoComponent
+    DialogAccesoComponent,
+    SolicitudComponent,
+    DialogRegistraSolicitudComponent,
+    DialogListaImplicadosComponent,
+    DialogConsultaExistenciaComponent,
+    DialogConsultaDocumentosComponent,
+    DialogCargaMasivaComponent,
+    DialogCartasComponent,
+    MaestrocargasComponent
   ],
   imports: 
   [
@@ -62,7 +78,8 @@ import { EmailFireService } from './shared/services/email-fire.service';
     FormsModule
   ],
   providers: [AngularFireStorageModule,AngularFirestore, FirebaseParametroService, CommonModule, DatePipe, EmailFireService, ],
-  entryComponents: [DialogAccesoComponent],
+  entryComponents: [DialogAccesoComponent, DialogRegistraSolicitudComponent, DialogListaImplicadosComponent, DialogConsultaExistenciaComponent,DialogConsultaDocumentosComponent,
+                    DialogCargaMasivaComponent, DialogCartasComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {   

@@ -1,0 +1,8 @@
+
+---
+- name: Install oauth-server-asesores service
+  hosts: '{{ inventory }}'
+  sudo: true
+
+  roles:
+    - jar-service

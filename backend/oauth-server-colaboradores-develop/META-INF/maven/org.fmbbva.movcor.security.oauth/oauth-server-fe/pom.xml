@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.fmbbva.movcor.security.oauth</groupId>
+	<artifactId>oauth-server-fe</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>authorization</name>
+	<description>Proyecto Servidor de Autorización OAuth FE</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.2.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<!-- variable para evitar la ejecucion de los test -->
+		<skip.surefire.tests>true</skip.surefire.tests>
+		<skip.failsafe.tests>true</skip.failsafe.tests>
+		<!-- distribuition management -->
+		<release.url>http://54.76.148.112:8081/nexus/repository/repository/maven-releases/</release.url>
+		<snapshot.url>http://54.76.148.112:8081/nexus/repository/maven-snapshots/</snapshot.url>
+		<!-- configuraicón global -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- versiones plugins -->
+		<plugin.failsafe.version>2.19.1</plugin.failsafe.version>
+		<plugin.surefire.version>2.19.1</plugin.surefire.version>
+		<plugin.jacoco.version>0.7.7.201606060606</plugin.jacoco.version>
+		<!-- versiones dependencias -->
+		<java.version>1.8</java.version>
+		<aspectj.version>1.7.4</aspectj.version>
+		<spring.boot.version>1.4.2.RELEASE</spring.boot.version>
+		<!-- versiones dependencias	test -->
+		<cucumber.version>1.2.5</cucumber.version>
+		<logstash-logback-encoder.version>4.8</logstash-logback-encoder.version>
+		
+		<finalName>oauth-server-asesores</finalName>
+	</properties>
+
+	<dependencies>
+		
+		<!-- Componente Arquitectura -->
+		<dependency>
+			<groupId>org.fmbbva.movcli.arq</groupId>
+			<artifactId>arq</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+		</dependency>
+		<!-- NOTICE solo local -->
+		<dependency>
+			<groupId>org.apache.directory.server</groupId>
+			<artifactId>apacheds-server-jndi</artifactId>
+			<version>1.5.5</version>
+		</dependency>
+
+	
+		<!-- Logback -->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash-logback-encoder.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-access</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- AspectJ dependencies -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- NOTICE solo local -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- developer tools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- TEST -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>	
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>it-test</id>		
+    
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>${finalName}</finalName>
+		<plugins>
+			<plugin>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <version>${spring.boot.version}</version>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>repackage</goal>
+			            </goals>			           
+			        </execution>
+			    </executions>
+			</plugin>
+			<!--Integration test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${plugin.failsafe.version}</version>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<skipTests>${skip.failsafe.tests}</skipTests>						
+							<argLine>${jacoco.agent.itArgLine} -Dspring.main.banner_mode=off</argLine>
+							<!-- 
+							<skipTests>${skip.failsafe.tests}</skipTests> 
+							-->
+							<excludes>
+								<exclude>**/*Test.java</exclude>
+								<exclude>**/*ITTest.java</exclude>
+							</excludes>
+							<includes>
+								<include>**/*CucumberTests.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${plugin.surefire.version}</version>
+				<configuration>
+					<skipTests>${skip.surefire.tests}</skipTests>
+					<!-- Specific to generate mapping between tests and covered code -->
+					<!-- 
+					<properties> 
+						<property> 
+							<name>listener</name> 
+							<value>org.sonar.java.jacoco.JUnitListener</value> 
+						</property> 
+					</properties> 
+					-->
+					<excludes>
+						<exclude>**/*CucumberTests.java</exclude>
+						<exclude>**/*ITTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<!-- Jacoco for test coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${plugin.jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.basedir}/target/jacoco.exec</destFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-prepare-agent-integration</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.basedir}/target/jacoco-it.exec</destFile>
+							<propertyName>jacoco.agent.itArgLine</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report-integration</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report-integration</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus.releases</id>
+			<url>${release.url}</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>nexus.snapshots</id>
+			<url>${snapshot.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

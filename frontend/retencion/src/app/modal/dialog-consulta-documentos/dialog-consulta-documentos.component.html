@@ -1,0 +1,110 @@
+<div *ngIf="loading" class="content-load">
+    <br>
+    <mat-spinner class="child-load"></mat-spinner>
+    <br>
+    <mat-label class="child-load"><strong>Cargando... </strong></mat-label>
+</div>
+<div [formGroup]="regSolicitud">
+    <div class="pipeline white lined-primary">
+        <div class="pipeline-header">
+            <h6 class="pipeline-name">
+                 DOCUMENTOS DE LA SOLICITUD 10
+            </h6> 
+            <div style="color: whitesmoke;" class="pipeline-settings os-dropdown-trigger">
+                <button style="background-color:chocolate; color: aliceblue;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item (click)="openDialogEditar()">
+                    <mat-icon style="background-color: chocolate; color: aliceblue;">New</mat-icon>
+                    <span>Nuevo</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">refresh</mat-icon>
+                        <span>Actualizar</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">saved</mat-icon>
+                        <span>Aceptar</span>
+                    </button>
+                    <button style="background-color: chocolate; color: aliceblue;" mat-menu-item>
+                        <mat-icon style="background-color: chocolate; color: aliceblue;">highlight_off</mat-icon>
+                        <span>Salir</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="example-container1 mat-elevation-z8" style="width: 100%;" >        
+            <table style="border-width: 0.1px; padding: 0.2px; border-style:dotted;
+            border-color:cadetblue;" matSort (matSortChange)="sortData($event)" bordered="true" width=100%>
+                <tr class="encabezado">
+                <th mat-sort-header="id">id</th>
+                <th mat-sort-header="tipodocumento">TIPO DE DOCUMENTO</th>
+                <th mat-sort-header="numerodocumento">NUMERO DOCUMENTO</th>
+                <th mat-sort-header="apellidosnombres">ARCHIVO DE CARGA</th>
+                <th mat-sort-header="origenbusqueda">FECHA DE CARGA</th>
+                <th mat-sort-header="acc">ACCION</th>
+                </tr>
+            
+                <tr *ngFor="let dessert of sortedData" class="detalle">
+                <td class="pointer" style="text-align: center;">{{dessert.id}}</td>
+                <td>{{dessert.tipodocumento}}</td>
+                <td>{{dessert.numerodocumento}}</td>
+                <td>{{dessert.archivo}}</td>
+                <td>{{dessert.fechacarga}}</td>
+                <td align="center">
+                    <mat-icon matTooltip="Consultar Productos" class="pointer" style="color: #3f51b5;" (click)="openDialogProductos()">edit</mat-icon>
+                    <mat-icon matTooltip="Ver Documento"  class="pointer" style="color: #3f51b5;" (click)="openverdoc()">visibility</mat-icon>                                    
+                </tr>
+            </table>
+        </div>
+<br>
+        <div class="example-container2 mat-elevation-z8" *ngIf="this.activa" style="width: 100%;" >
+            <table width=100% height=100% style="border-width: 0.1px; padding: 0.2px; border-style:dotted;
+            border-color:cadetblue;">
+                <tr class="encabezado" colspan="3" style="height:32 px;">
+                    <th colspan="3">REGISTRO DE DOCUMENTOS DE LA SOLICITUD 10</th>                            
+                </tr>
+                <tr>
+                    <td colspan="2"><mat-form-field style="font-size: xx-small; width: 100%;">
+                        <input formControlName="apellidopaternoInput" matInput #inputapenom maxlength="200"
+                        placeholder="Archivo de Carga">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field style="font-size: xx-small; width: 100%;">
+                            <input formControlName="fechaInicioInput" matInput [matDatepicker]="picker2"
+                                placeholder="Fecha de Registro" [min]="minDate" [max]="maxDate"
+                                (dateInput)="changeFech('input', $event)" (dateChange)="changeFech('change', $event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div >
+                        <mat-form-field style="font-size: xx-small; width: 100%;">
+                            <mat-select formControlName="tipodocumento" placeholder="Tipo de Documento"
+                                [compareWith]="compareItems" [(ngModel)]="tipodocumento">
+                                <mat-option *ngFor="let tipodocumentolet of tipodocumentolista" [value]="tipodocumentolet">
+                                    {{tipodocumentolet}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div></td>
+                    <td><div >                
+                        <mat-form-field style="font-size: xx-small;">
+                        <input class="numerodocumentoinput" matInput #inputHoras type="text" placeholder="Numerico de Documento">
+                        </mat-form-field>                
+                        </div>                
+                    </td>
+                    <td align="center">
+                        <button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect>Grabar</button>
+                        <button style="font-size: x-small;" class="btn btn-primary btn-rounded waves-effect waves-light" type="button" color="primary" rounded="true" mdbWavesEffect (click)="openDialogPlantilla()">Cargar Plantilla</button>
+                    </td>
+                </tr>                                                            
+            </table>                                    
+        </div>
+        
+    </div>
+</div>
